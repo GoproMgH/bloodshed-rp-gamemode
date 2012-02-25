@@ -14,6 +14,6 @@ include( 'shared.lua' )
 function GM:PlayerLoadout( ply )
 
 	pl:StripWeapons()
-	pl:Give( "roleplay_fists" )
+	pl:Give( "empty_weapon" )
 	
 end
