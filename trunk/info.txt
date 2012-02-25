@@ -1,11 +1,11 @@
 "Gamemode"
 {
-	"name"		"Skeleton"
-	"version"	"1.0"
+	"name"		"BloodshedRP"
+	"version"	"0.1"
 
-	"author_name"	""
+	"author_name"	"Blazedd & Zezoog"
 	"author_email"	""
-	"author_url"	""
+	"author_url"	"http://code.google.com/p/bloodshed-rp-gamemode/"
 	
 	"icon"		""
 	"info"		""
