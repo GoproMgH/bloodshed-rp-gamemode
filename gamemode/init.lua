@@ -13,7 +13,7 @@ include( 'shared.lua' )
 ---------------------------------------------------------*/
 function GM:PlayerLoadout( ply )
 
-	pl:StripWeapons()
-	pl:Give( "empty_weapon" )
+	ply:StripWeapons()
+	ply:Give( "empty_weapon" )
 	
 end
