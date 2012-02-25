@@ -11,10 +11,9 @@ include( 'shared.lua' )
    Name: gamemode:PlayerLoadout( )
    Desc: Give the player the default spawning weapons/ammo
 ---------------------------------------------------------*/
-function GM:PlayerLoadout( pl )
+function GM:PlayerLoadout( ply )
 
-	pl:GiveAmmo( 255,	"Pistol", 		true )
-	
-	pl:Give( "empty_weapon" )
+	pl:StripWeapons()
+	pl:Give( "roleplay_fists" )
 	
 end
