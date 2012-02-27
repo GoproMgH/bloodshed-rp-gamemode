@@ -10,3 +10,7 @@ function GM:Initialize()
 	
 end
 
+function GM:PlayerConnect( name, address ) 
+    print( "Player " .. name .. " has joined the game ")
+end 
+
