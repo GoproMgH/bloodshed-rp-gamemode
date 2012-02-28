@@ -2,151 +2,51 @@
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 
-AddCSLuaFile("/gui/menus/f1_menu.lua")
-AddCSLuaFile("/gui/menus/f2_menu.lua")
-AddCSLuaFile("/gui/menus/f3_menu.lua")
-AddCSLuaFile("/gui/menus/f4_menu.lua")
-AddCSLuaFile("/gui/menus/joinmenu.lua")
+
+--Yes, I Know, Moudlar As Hell
+
+include( "server/sv_spawn.lua" )
+include( "server/sv_disconnect.lua" )
+include( "server/sv_spray.lua" )
+
+
 
 include( 'shared.lua' )
 
-// Serverside stuff
+--Unclassified--
 
-/*---------------------------------------------------------
-   Name: gamemode:PlayerLoadout( )
-   Desc: Give the player the default spawning weapons/ammo
----------------------------------------------------------*/
+include( "gui/menus/f1_menu.lua" )
+include( "gui/menus/f1_menu.lua" )
+include( "gui/menus/f1_menu.lua" )
+
+---Menus---
+
+include( "gui/menus/f1_menu.lua" )
+include( "gui/menus/f2_menu.lua" )
+include( "gui/menus/f3_menu.lua" )
+include( "gui/menus/f4_menu.lua" )
+include( "gui/hud/joinmenu.lua" )
+
+---Realism---
+
+include( "/server/realism/sv_shotpart.lua" )
+include( "/server/realism/sv_explosion.lua" )
+
+--Chat--
+
+include( "server/chat/sv_ooc.lua" )
+include( "server/chat/sv_g.lua" )
+include( "server/chat/sv_local.lua" )
+include( "server/chat/sv_msg.lua" )
+include( "server/chat/sv_adv.lua" )
+include( "server/chat/sv_p.lua" )
+
+
+
 function GM:PlayerLoadout( ply )
-
-	ply:StripWeapons()
+    ply:StripWeapons()
 	ply:Give( "empty_weapon" )
 end
-
-/*---------------------------------------
-Menus
----------------------------------------*/
-
-//------------------------------F1 Menu--------------------------------------
-
-function GM:ShowHelp( ply ) -- This hook is called everytime F1 is pressed.
-    umsg.Start( "HelpMenu", ply ) -- Sending a message to the client.
-    umsg.End()
-end --Ends function
-
-//------------------------------F2 Menu--------------------------------------
-
-function GM:ShowTeam( ply ) -- This hook is called everytime F2 is pressed.
-    umsg.Start( "TeamMenu", ply ) -- Sending a message to the client.
-    umsg.End()
-end --Ends function
-
-//------------------------------F3 Menu--------------------------------------
-
-function GM:ShowSpare1( ply ) -- This hook is called everytime F3 is pressed.
-    umsg.Start( "SpareaMenu", ply ) -- Sending a message to the client.
-    umsg.End()
-end --Ends function
-
-//------------------------------F4 Menu--------------------------------------
-
-function GM:ShowSpare2( ply ) -- This hook is called everytime F4 is pressed.
-    umsg.Start( "SparebMenu", ply ) -- Sending a message to the client.
-    umsg.End()
-end --Ends function
-
-//---------------------------Spawn Menu--------------------------------------
-
-function GM:PlayerInitialSpawn( pl )
-    umsg.Start( "SpawnMenu", ply ) -- Sending a message to the client.
-    umsg.End()
-end --Ends function
-
-/*------------------------------
-Realism/damage mechanics Section
-------------------------------*/
-
-//-------------Hit Location Compensation-------------------------------------
-
-function ScaleDamage( ply, hitgroup, dmginfo )
- 
-    
-     if ( hitgroup == HITGROUP_HEAD ) then
- 
-        dmginfo:ScaleDamage( 2 ) --Normal + 25% more pwnage
- 
-     end
- 
-    
-    if ( hitgroup == HITGROUP_LEFTARM ||
-         hitgroup == HITGROUP_RIGHTARM || 
-         hitgroup == HITGROUP_LEFTLEG ||
-         hitgroup == HITGROUP_RIGHTLEG ||
-         hitgroup == HITGROUP_GEAR ) then
- 
-        dmginfo:ScaleDamage( 0.50 ) -- only half on legs/arms
- 
-     end
- 
-end
- 
-hook.Add("ScalePlayerDamage","ScaleDamage",ScaleDamage)
-
-//-------------Ear ringing effect when shit explodes-------------------------
-
-function GM:OnDamagedByExplosion( ply, dmginfo )
- 
-        ply:SetDSP( 35, false )
- 
-end
-
-/*------------------------------
-Basic Serverside Game Mechanics
-------------------------------*/
-
-//-------------OOC Chat------------------------------------------------------
-
-function ISaid( ply, text, public )
-    if (string.sub(text, 1, 4) == "/ooc") then--if the first 4 letters are /ooc continue
-        return "[OOC]"..string.sub( text, 5 );--add [OOC] infront of the players text then display
-    end
-end
-hook.Add( "PlayerSay", "ISaid", ISaid );
-
-//--------------Welcome a player--------------------------------------------------------
-
-function FirstSpawn( ply )
- 
-    ply:PrintMessage(HUD_PRINTCENTER,"Welcome to the server!")
- 
-end
- 
-hook.Add( "PlayerInitialSpawn", "playerInitialSpawn", FirstSpawn )
-
-//----------------------------------------------------------------------
-
-function fPlayerDisconnect( ply )
-    // Print to chat that a player has disconnected from the server.
-    PrintMessage( HUD_PRINTTALK, ply:GetName() .. " has left the server." )
-end
-// Add PlayerDisconnected hook that calls our function.
-hook.Add( "PlayerDisconnected", "playerdisconnected", fPlayerDisconnect )
-
-//---------------------------------------------------------------------
-
-
-function GM:PlayerCanHearPlayersVoice()
-    return true, true
-end
-
-//---------------------------------------------------------------------
-
-function GM:PlayerSpray(ply)
-    return !ply:IsAdmin()
-end
-
-//---------------------------------------------------------------------
-
-
 
 
 

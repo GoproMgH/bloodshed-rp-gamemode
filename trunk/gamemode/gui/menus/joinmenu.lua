@@ -50,3 +50,8 @@ end
 
 end
 usermessage.Hook("SpawnMenu", SpawnMenu)
+
+function GM:PlayerInitialSpawn( ply )
+    umsg.Start( "SpawnMenu", ply ) -- Sending a message to the client.
+    umsg.End()
+end --Ends function
