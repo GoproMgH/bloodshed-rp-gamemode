@@ -16,3 +16,8 @@ DermaPanel:MakePopup() -- Show the frame
 
 end
 usermessage.Hook("SpareaMenu", SpareaMenu)
+
+function GM:ShowSpare1( ply ) -- This hook is called everytime F3 is pressed.
+    umsg.Start( "SpareaMenu", ply ) -- Sending a message to the client.
+    umsg.End()
+end --Ends function

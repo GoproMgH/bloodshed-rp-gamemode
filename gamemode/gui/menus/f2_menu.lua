@@ -16,3 +16,8 @@ DermaPanel:MakePopup() -- Show the frame
 
 end
 usermessage.Hook("TeamMenu", TeamMenu)
+
+function GM:ShowTeam( ply ) -- This hook is called everytime F2 is pressed.
+    umsg.Start( "TeamMenu", ply ) -- Sending a message to the client.
+    umsg.End()
+end --Ends function
